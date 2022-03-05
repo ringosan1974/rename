@@ -12,8 +12,8 @@ int align_scanf_s(char* cp, const char* c);
 int main(void){
   DIR* dir;
   struct dirent *ds;
-  char path[32]; //DirectoryのPath
-  char new_fn[128];
+  char path[128]; //DirectoryのPath
+  char new_fn[32];
   int fnum_count = 0;
   align_scanf_s(path, "path");
   align_scanf_s(new_fn, "new file name");
@@ -48,7 +48,7 @@ char* connect_str_int(const char* c1, int num){
   return c;
 }
 
-//よく使う形のscanf()
+//〇〇 : の形でscanf
 int align_scanf_s(char* cp, const char* c){
   printf("%s : ", c);
   if(scanf("%s", cp) == EOF){
