@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <dirent.h>
+#include <sys/stat.h>
 #include <unistd.h>
 #define _POSIX_SOURSE
 
@@ -12,13 +13,18 @@ int align_scanf_s(char* cp, const char* c);
 int main(void){
   DIR* dir;
   struct dirent *ds;
+  struct stat stat_buf;
   char path[128]; //DirectoryのPath
   char new_fn[32];
   int fnum_count = 0;
   align_scanf_s(path, "path");
   align_scanf_s(new_fn, "new file name");
+  if(stat(path, &stat_buf) != 0){
+    printf("そのPathは存在しません\n");
+    exit(0);
+  }
   dir = opendir(path);
-  chdir(path);  //カレントディレクトリ変更
+  chdir(path);  //このプログラムのカレントディレクトリ変更
   while((ds = readdir(dir)) != NULL){ //すべてのfileを読み込む
     if(ds->d_name[0] == '.'){ //隠しファイルはrename()しない
       continue;
@@ -30,7 +36,7 @@ int main(void){
   return 0;
 }
 
-//rename()安全版
+//ファイルにアクセスできるかどうかを確かめるrename
 int file_rename(const char* fn, const char* nfn){
   if(access(nfn, F_OK) != 0){
     if(rename(fn, nfn) != 0){
