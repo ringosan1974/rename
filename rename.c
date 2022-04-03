@@ -14,7 +14,7 @@ int main(void){
   DIR* dir;
   struct dirent *ds;
   struct stat stat_buf;
-  char path[128]; //DirectoryのPath
+  char path[128]; //ディレクトリのパス
   char new_fn[32];
   int fnum_count = 0;
   align_scanf_s(path, "path");
@@ -36,7 +36,7 @@ int main(void){
   return 0;
 }
 
-//ファイルにアクセスできるかどうかを確かめるrename
+//ファイルにアクセスできるかどうかを確かめてrename
 int file_rename(const char* fn, const char* nfn){
   if(access(nfn, F_OK) != 0){
     if(rename(fn, nfn) != 0){
@@ -54,7 +54,6 @@ char* connect_str_int(const char* c1, int num){
   return c;
 }
 
-//〇〇 : の形でscanf
 int align_scanf_s(char* cp, const char* c){
   printf("%s : ", c);
   if(scanf("%s", cp) == EOF){
