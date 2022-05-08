@@ -50,6 +50,7 @@ int fileIsBeing(const char *fn) {
 }
 
 //ディレクトリにアクセスできるか確かめる
+//存在しなければ強制終了
 int dirIsBeing(const char *path, struct stat *stat_buf) {
   if(stat(path, stat_buf) != 0){
     printf("そのディレクトリは存在しません\n");
