@@ -7,6 +7,7 @@
 #define _POSIX_SOURSE
 
 int fileIsBeing(const char *fn);
+int dirIsBeing(const char *path, struct stat *stat_buf);
 int rename_s(const char *fn, const char *newfn);
 char *connectStrInt(const char *p, int num);
 int ask(char *p, const char *c);
@@ -20,13 +21,8 @@ int main(void){
   int count = 0;
 
   ask(path, "path");
+  dirIsBeing(path, &stat_buf);
   ask(new_fn, "new file name");
-
-  //ディレクトリの存在判定
-  if(stat(path, &stat_buf) != 0){
-    printf("そのディレクトリは存在しません\n");
-    exit(1);
-  }
 
   dir = opendir(path);
 
@@ -53,8 +49,17 @@ int fileIsBeing(const char *fn) {
   return 0;
 }
 
+//ディレクトリにアクセスできるか確かめる
+int dirIsBeing(const char *path, struct stat *stat_buf) {
+  if(stat(path, stat_buf) != 0){
+    printf("そのディレクトリは存在しません\n");
+    exit(1);
+  }
+  return 0;
+}
+
 int rename_s(const char *fn, const char *newfn){
-  fileIsBeing(newfn);
+  fileIsBeing(fn);
   rename(fn, newfn);
   return 0;
  }
