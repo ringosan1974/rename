@@ -16,8 +16,8 @@ int main(void){
   DIR* dir;
   struct dirent *ds;
   struct stat stat_buf;
-  char path[128]; //ディレクトリのパス
-  char new_fn[32];
+  char path[128];
+  char new_filename[32];
   int count = 0;
 
   ask(path, "path");
